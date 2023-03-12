@@ -1,25 +1,15 @@
-.noline{
-text-decoration: none;
-margin-left: 20px;
-color: blue;
-transition: all 1s;
-margin-top: 20px;
-float: left;
+body {
+  width: 100%;
+  height: 1500px;
+  background: linear-gradient(
+      217deg,
+      rgba(255, 0, 0, 0.8),
+      rgba(255, 0, 0, 0) 70.71%
+    ),
+    linear-gradient(127deg, rgba(0, 255, 0, 0.8), rgba(0, 255, 0, 0) 70.71%),
+    linear-gradient(336deg, rgba(0, 0, 255, 0.8), rgba(0, 0, 255, 0) 70.71%);
 }
-.noline:hover{
-    color: red;
-}
-body{
-    width: 100%;
-    height: 4000px;
-    background:-webkit-linear-gradient(left, hsl(120, 7%, 8%), rgba(26, 26, 2, 0),black) no-repeat;
-}
-#datetime{
-color:wheat;
-background-color: white;
-
-}
-*{
-    margin:0;
-    padding:0;
+* {
+  margin: 0;
+  padding: 0;
 }

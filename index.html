@@ -1,165 +1,33 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>    <link rel="Shortcut Icon" href="./favicon.ico" type="image/x-icon" />
-
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RMF's</title>
-    <!-- <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <script src="https://cdn.bootcdn.net/ajax/libs/element-ui/2.15.1/index.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+<html lang="zh-CN">
+  <head>
+    <link rel="Shortcut Icon" href="./favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>rmf-blog</title>
     <link rel="stylesheet" type="text/css" href="./startStudy.css" />
-	<link rel="icon" href="/wy.ico" type="image/x-icon" />
-    <!-- <script language="JavaScript">
-    var password="";password=prompt('请输入密码 (本网站需输入密码才可进入):','');
-        if (password != '3263')   {alert("密码不正确,无法进入本站!!");  
-          window.opener=null; window.close();}  </script> -->
-          <style>
-              #c1{
-                  /* position: absolute; */
-                margin: 0 auto ;
-                                }
-
-          </style>
-</head>
-
-<body>
-
-    <div id="datetime">
-        <script>
-            setInterval("document.getElementById('datetime').innerHTML=new Date().toLocaleString();", 1000);
-        </script>
-    </div><!-- canvas画的时钟 -->
-<canvas id="c1"></canvas>
-    <div>
-        <a href="https://cn.bing.com/" target="_blank" class="noline">Bing</a>
-        <a href="https://cn.vuejs.org/" target="_blank" class="noline">Vue</a>
-        <a href="https://www.bootcdn.cn//" target="_blank" class="noline">BootCdn</a>
-        <a href="https://element.eleme.cn/#/zh-CN" target="_blank" class="noline">Element</a>
-        <a href="https://echarts.apache.org/zh/index.html" target="_blank" class="noline">Echarts</a>
-        <a href="https://router.vuejs.org/zh/" target="_blank" class="noline">Vue Router</a>
-        <a href="https://www.bootcss.com/" target="_blank" class="noline">BootStrap</a>
-        <a href="https://www.w3school.com.cn/html/index.asp" target="_blank" class="noline">Html</a>
-        <a href="https://www.bilibili.com/" target="_blank" class="noline">BiLi</a>
-        <a href="https://github.com/" target="_blank" class="noline">GitHub</a>
-        <a href="http://jwxt.wit.edu.cn/jsxsd/" target="_blank" class="noline">Wit</a>
-		<a href="https://www.processon.com/diagrams" target="_blank" class="noline">Processon</a>
-        <a href="https://www.zhaopin.com/" target="_blank" class="noline">Job</a>
-        <a href="https://convertio.co/zh/" target="_blank" class="noline">ZhuanWenJian</a>
-        <a href="https://www.dcloud.io/index.html" target="_blank" class="noline">Dcloud</a>
-        
-
+    <link rel="stylesheet" type="text/css" href="./assets/style.css" />
+  </head>
+  <body>
+    <div class="blog-page">
+      <div class="click-box">
+        <a class="common-btn" id="leTou" href="#content">L</a>
+        <a class="common-btn" id="fuCai" href="#content">F</a>
+      </div>
+      <div id="content" class="content-box">
+        <div id="sortId" class="sort-5 row">
+        </div>
+        <div id="preNumId" class="pre-num row">
+        </div>
+        <div id="nexNumId" class="nex-num row">
+        </div>
+      </div>
     </div>
-    
-<script>
-    //封装时钟函数
-     function Clock(selector,options){
-                
-                //获取元素
-                var canvas  = document.querySelector(selector);
-                //设置元素的宽高
-                canvas.width = options && options.width?options.width:500;
-                canvas.height = options && options.height?options.height:500;
-                var ctx = canvas.getContext('2d');
-                setInterval(function(){
-                //清空画布
-                ctx.clearRect(0,0,canvas.width,canvas.height);
-                ctx.save();
-            ctx.beginPath();
-            ctx.arc(canvas.width/2,canvas.height/2,150*canvas.width/400,0,360/180*Math.PI);
-            ctx.stroke();
-         
-            ctx.translate(canvas.width/2,canvas.height/2);
-            ctx.rotate(-90/180*Math.PI);
-            ctx.save();
-            for(var i =0;i<60;i++){
-                 ctx.rotate(6/180*Math.PI);
-                 if(i%5===4) continue;
-            ctx.beginPath();
-            ctx.strokeStyle='#999';
-            ctx.lineWidth=2*canvas.width/400;
-            ctx.moveTo(135*canvas.width/400,0);
-            ctx.lineTo(145*canvas.width/400,0);
-            ctx.stroke();
-            }
-          ctx.restore();
-          ctx.save();
-          for(var i=0;i<12;i++){
-          ctx.rotate(30/180*Math.PI);
-          ctx.beginPath();
-          ctx.lineWidth=4*canvas.width/400;
-          ctx.moveTo(120*canvas.width/400,0);
-          ctx.lineTo(145*canvas.width/400,0);
-          ctx.stroke();}
-           ctx.restore();
-           var date = new Date();
-var h= date.getHours();
-var m = date.getMinutes();
-var s = date.getSeconds();
-//时针的旋转角度
-var hRotate = (h*60+m)/60*30;
-//分针的旋转角度
-var mRotate = 6*(60*m+s)/60;
-//秒针的角度
-var sRotate = s*6;
-
-
-
-           //绘制秒针
-           ctx.save();
-           //旋转坐标系
-           ctx.rotate(sRotate/180*Math.PI);
-           ctx.beginPath();
-           ctx.moveTo(-20*canvas.width/400,0);
-           ctx.lineTo(100*canvas.width/400,0);
-           ctx.stroke();
-           ctx.restore();
-
-           ctx.save();
-           //旋转坐标系 分针
-           ctx.rotate(mRotate/180*Math.PI);
-           ctx.beginPath();
-           ctx.moveTo(-15*canvas.width/400,0);
-           ctx.lineTo(90*canvas.width/400,0);
-           ctx.lineWidth=2*canvas.width/400;
-           ctx.stroke();
-           ctx.restore();
-
-           ctx.save();
-           //旋转坐标系 时针
-           ctx.rotate(hRotate/180*Math.PI);
-           ctx.beginPath();
-           ctx.moveTo(-10*canvas.width/400,0);
-           ctx.lineTo(70*canvas.width/400,0);
-           ctx.lineWidth=3*canvas.width/400;
-           ctx.stroke();
-           ctx.restore();
-           //绘制中心小圆点
-           ctx.beginPath();
-           ctx.arc(0,0,5*canvas.width/400,0,360/180*Math.PI);
-           //设置填充颜色
-            // ctx.fillStyle='red';
-           ctx.fill();
-            ctx.restore();
-        //   ctx.beginPath();
-        //   ctx.moveTo(0,0);
-        //   ctx.lineTo(100,0);
-        //   ctx.stroke();
-    },1000)
-    
-            }
-            new Clock('#c1',{
-                width:200,
-                height:200
-            });
-            var flag=false;
-           
-</script>
-
-
-
-</body>
-
+  </body>
 </html>
+
+<script type="module">
+  import "/hooks/useClick.js";
+
+</script>
