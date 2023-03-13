@@ -1,5 +1,8 @@
+/** 排列五 */
 export let sortStr = "";
+/** 前区 */
 export let resPre = [];
+/** 后区 */
 export let resNex = [];
 /** 判断是乐透还是福彩返回对应范围数字
  * 乐透 1-35 1-12

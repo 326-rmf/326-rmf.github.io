@@ -12,22 +12,24 @@
   <body>
     <div class="blog-page">
       <div class="click-box">
-        <a class="common-btn" id="leTou" href="#content">L</a>
-        <a class="common-btn" id="fuCai" href="#content">F</a>
+        <a class="common-btn" id="leTou">L</a>
+        <a class="common-btn" id="fuCai">F</a>
       </div>
       <div id="content" class="content-box">
-        <div id="sortId" class="sort-5 row">
-        </div>
-        <div id="preNumId" class="pre-num row">
-        </div>
-        <div id="nexNumId" class="nex-num row">
-        </div>
+        <div id="sortId" class="sort-5 row"></div>
+        <div id="preNumId" class="pre-num row"></div>
+        <div id="nexNumId" class="nex-num row"></div>
       </div>
+
+      <!-- 星图动画 -->
+      <div class="canvaszz"></div>
+      <canvas id="canvas" class="canvas"></canvas>
     </div>
   </body>
 </html>
 
 <script type="module">
   import "/hooks/useClick.js";
-
+  import { drawStars } from "/hooks/useStar.js";
+  drawStars();
 </script>
