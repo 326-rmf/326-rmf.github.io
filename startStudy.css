@@ -13,6 +13,7 @@ body {
   height: 1500px;
   z-index: -1;
   background-image: url(assets/img/star.jpg);
+  background-repeat: no-repeat;
   filter: alpha(opacity=20);
   opacity: 0.4;
 }
