@@ -52,3 +52,7 @@
 .content-box > .row {
   margin-bottom: 10px;
 }
+#showC {
+  width: 100%;
+  height: 100%;
+}
