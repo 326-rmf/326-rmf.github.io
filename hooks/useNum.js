@@ -23,13 +23,9 @@ export const numObj = {
   },
 };
 // 生成排三排五数据
-export const generateSort = (str) => {
+export const generateSort = () => {
   const arr = [];
   for (let i = 0; i < 5; i++) {
-    let sign = 0;
-    while (sign !== str) {
-      sign = Math.random().toFixed(3);
-    }
     arr.push(Math.floor(Math.random() * 10));
   }
   return arr.join("");
@@ -38,27 +34,15 @@ export const generateSort = (str) => {
 export function tryNum(type) {
   // 获取当前日期
   const nowDay = new Date();
-  // 获取当前月份
-  const month = nowDay.getMonth() + 1;
-  const day = nowDay.getDate();
-  const str = "0." + month + day;
-  sortStr = generateSort(str);
+  sortStr = generateSort();
   const obj = numObj[type];
   resPre = [];
   resNex = [];
 
   const getPreRandom = () => {
-    let sign = 0;
-    while (sign !== str) {
-      sign = Math.random().toFixed(3);
-    }
     return Math.floor(Math.random() * obj.pre + 1);
   };
   const getNexRandom = () => {
-    let sign = 0;
-    while (sign !== str) {
-      sign = Math.random().toFixed(3);
-    }
     return Math.floor(Math.random() * obj.nex + 1);
   };
 
