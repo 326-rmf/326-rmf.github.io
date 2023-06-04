@@ -4,6 +4,8 @@ export let sortStr = "";
 export let resPre = [];
 /** 后区 */
 export let resNex = [];
+/** 七星彩 */
+export let qNum = "";
 /** 判断是乐透还是福彩返回对应范围数字
  * 乐透 1-35 1-12
  * 福彩 1-33 1-16
@@ -29,6 +31,16 @@ export const generateSort = () => {
     arr.push(Math.floor(Math.random() * 10));
   }
   return arr.join("");
+};
+// 生成七星彩数据
+export const generateQNum = () => {
+  const arr = [];
+  for (let i = 0; i < 6; i++) {
+    arr.push(Math.floor(Math.random() * 10));
+  }
+  arr.push(",")
+  arr.push(Math.floor(Math.random() * 15));
+  qNum = arr.join("");
 };
 // 乐透福彩
 export function tryNum(type) {

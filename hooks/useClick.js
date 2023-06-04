@@ -1,4 +1,11 @@
-import { tryNum, sortStr, resPre, resNex } from "/hooks/useNum.js";
+import {
+  tryNum,
+  sortStr,
+  resPre,
+  resNex,
+  generateQNum,
+  qNum,
+} from "/hooks/useNum.js";
 
 /** 滚动条移动位置 */
 const pageMove = () => {
@@ -19,13 +26,23 @@ const setNum = () => {
     .join(",");
 };
 
-document.getElementById("leTou").onclick = () => {
-  tryNum("leTou");
+/** 生成数据 */
+const gegerateData = (type) => {
+  tryNum(type);
   setNum();
   pageMove();
 };
+
+document.getElementById("leTou").onclick = () => {
+  gegerateData("leTou");
+};
 document.getElementById("fuCai").onclick = () => {
-  tryNum("fuCai");
-  setNum();
+  gegerateData("fuCai");
+};
+document.getElementById("qi").onclick = () => {
+  generateQNum();
+  document.getElementById("sortId").innerHTML = qNum;
+  document.getElementById("preNumId").innerHTML = "";
+  document.getElementById("nexNumId").innerHTML = "";
   pageMove();
 };
