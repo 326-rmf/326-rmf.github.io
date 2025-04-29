@@ -1,3 +1,4 @@
+import { chooseDirect } from "./useLogic.js";
 /** 排列五 */
 export let sortStr = "";
 /** 前区 */
@@ -26,11 +27,7 @@ export const numObj = {
 };
 // 生成排三排五数据
 export const generateSort = () => {
-  const arr = [];
-  for (let i = 0; i < 5; i++) {
-    arr.push(Math.floor(Math.random() * 10));
-  }
-  return arr.join("");
+  return chooseDirect();
 };
 // 生成七星彩数据
 export const generateQNum = () => {
@@ -38,14 +35,12 @@ export const generateQNum = () => {
   for (let i = 0; i < 6; i++) {
     arr.push(Math.floor(Math.random() * 10));
   }
-  arr.push(",")
+  arr.push(",");
   arr.push(Math.floor(Math.random() * 15));
   qNum = arr.join("");
 };
 // 乐透福彩
 export function tryNum(type) {
-  // 获取当前日期
-  const nowDay = new Date();
   sortStr = generateSort();
   const obj = numObj[type];
   resPre = [];

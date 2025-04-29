@@ -7,6 +7,42 @@ import {
   qNum,
 } from "/hooks/useNum.js";
 
+/** 排五前置数据1 */
+const Data_1 = document.getElementById("data-1");
+/** 排五前置数据2 */
+const Data_2 = document.getElementById("data-2");
+/** 排序数据框 */
+const SortExpress1 = document.getElementById("sortId");
+/** 排序前置数据 */
+const SortExpressPre = document.getElementById("preNumId");
+/** 排序后置数据 */
+const SortExpressNex = document.getElementById("nexNumId");
+/** 乐透按钮 */
+const LeBtn = document.getElementById("leTou");
+/** 福彩按钮 */
+const FuBtn = document.getElementById("fuCai");
+/** 七星彩按钮 */
+const QBtn = document.getElementById("qi");
+
+/**数据验证规则必须五位阿拉伯数字 */
+const checkNum = (num) => {
+  const reg = /^[0-9]{5}$/;
+  return reg.test(num);
+};
+
+/**判断数据格式是否正确 */
+const checkNumIsOk = () => {
+  let dataComplete = checkNum(Data_1.value) && checkNum(Data_2.value);
+  if (dataComplete) {
+    return true;
+  } else {
+    alert("输入框数据格式有误,必须满足五位字符并且是数字");
+    Data_1.value = "";
+    Data_2.value = "";
+    return false;
+  }
+};
+
 /** 滚动条移动位置 */
 const pageMove = () => {
   window.scrollTo({
@@ -15,34 +51,39 @@ const pageMove = () => {
   });
 };
 
+/**数据排序 */
+const sortStrFn = (num) => {
+  return num.sort((a, b) => a - b).join(",");
+};
+
 /** 数字装填进入dom元素显示 */
 const setNum = () => {
-  document.getElementById("sortId").innerHTML = sortStr;
-  document.getElementById("preNumId").innerHTML = resPre
-    .sort((a, b) => a - b)
-    .join(",");
-  document.getElementById("nexNumId").innerHTML = resNex
-    .sort((a, b) => a - b)
-    .join(",");
+  SortExpress1.innerHTML = sortStr;
+  SortExpressPre.innerHTML = sortStrFn(resPre);
+  SortExpressNex.innerHTML = sortStrFn(resNex);
 };
 
 /** 生成数据 */
 const gegerateData = (type) => {
-  tryNum(type);
-  setNum();
-  pageMove();
+  if (checkNumIsOk()) {
+    tryNum(type);
+    setNum();
+    pageMove();
+  } else {
+    return;
+  }
 };
 
-document.getElementById("leTou").onclick = () => {
+LeBtn.onclick = () => {
   gegerateData("leTou");
 };
-document.getElementById("fuCai").onclick = () => {
+FuBtn.onclick = () => {
   gegerateData("fuCai");
 };
-document.getElementById("qi").onclick = () => {
+QBtn.onclick = () => {
   generateQNum();
-  document.getElementById("sortId").innerHTML = qNum;
-  document.getElementById("preNumId").innerHTML = "";
-  document.getElementById("nexNumId").innerHTML = "";
+  SortExpress1.innerHTML = qNum;
+  SortExpressPre.innerHTML = "";
+  SortExpressNex.innerHTML = "";
   pageMove();
 };
