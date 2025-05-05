@@ -43,6 +43,9 @@ const croCount = 5800;
 const bioCount = 3400;
 /**同数据次数 */
 const sameTime = 800;
+/**数据随机坐标 */
+const randomAxis = 10000;
+
 let Crossarr;
 let Bigotryarr;
 let Samearr;
@@ -67,7 +70,7 @@ const generateDirArr = () => {
   Samearr = new Array(sameTime).fill(Same);
   DirArr = Crossarr.concat(Bigotryarr).concat(Samearr);
   DirArr = DirArr.sort(() => Math.random() - 0.5);
-  let num = Math.round(Math.random() * 99);
+  let num = Math.round(Math.random() * randomAxis);
   return DirArr[num];
 };
 /**随机生成变大或者变小后的数据 */
