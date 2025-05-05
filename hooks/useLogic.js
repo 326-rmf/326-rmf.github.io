@@ -37,6 +37,12 @@ const smallest = 0;
 const biggest = 9;
 /**目前排列五循环数据次数 */
 const dataTime = 5;
+/**交叉波动次数 */
+const croCount = 5800;
+/**偏执一方次数 */
+const bioCount = 3400;
+/**同数据次数 */
+const sameTime = 800;
 let Crossarr;
 let Bigotryarr;
 let Samearr;
@@ -56,9 +62,9 @@ const expressDetail = (str, num) => {
 };
 /**走向数据的数组生成以及方向确定 */
 const generateDirArr = () => {
-  Crossarr = new Array(58).fill(Cross);
-  Bigotryarr = new Array(34).fill(Bigotry);
-  Samearr = new Array(8).fill(Same);
+  Crossarr = new Array(croCount).fill(Cross);
+  Bigotryarr = new Array(bioCount).fill(Bigotry);
+  Samearr = new Array(sameTime).fill(Same);
   DirArr = Crossarr.concat(Bigotryarr).concat(Samearr);
   DirArr = DirArr.sort(() => Math.random() - 0.5);
   let num = Math.round(Math.random() * 99);
