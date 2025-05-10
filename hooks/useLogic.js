@@ -23,6 +23,8 @@ const Same = 2;
 const Changebig = 0;
 /**变小 */
 const Changesmall = 1;
+/**同数据波动 */
+const Changecross = 2;
 const num_1 = document.getElementById("num_1");
 const num_2 = document.getElementById("num_2");
 const num_3 = document.getElementById("num_3");
@@ -31,7 +33,7 @@ const num_5 = document.getElementById("num_5");
 const num_Arr = [num_1, num_2, num_3, num_4, num_5];
 const Data_1 = document.getElementById("data-1");
 const Data_2 = document.getElementById("data-2");
-let dataChnageArr = ["变大", "变小"];
+let dataChnageArr = ["变大", "变小", "同数据波动"];
 let dataDirArr = ["交叉波动", "偏执一方", "同数据走向"];
 const smallest = 0;
 const biggest = 9;
@@ -52,10 +54,12 @@ let Samearr;
 let DirArr;
 /**数据具体变化对应相关字符 */
 const dataDetailChange = (num, str) => {
-  if (num >= 0) {
+  if (num === Changesmall) {
     str += "数据的具体变化是：" + dataChnageArr[Changesmall] + ",";
-  } else {
+  } else if (num === Changebig) {
     str += "数据的具体变化是：" + dataChnageArr[Changebig] + ",";
+  } else {
+    str += "数据的具体变化是：" + dataChnageArr[Changecross] + ",";
   }
   return str;
 };
@@ -75,16 +79,22 @@ const generateDirArr = () => {
 };
 /**随机生成变大或者变小后的数据 */
 const generateRandomNum = (dir, num) => {
-  if (dir > smallest) {
+  if (dir === Changesmall) {
     // 变小
     if (num === smallest) {
       return smallest;
     } else {
       return Math.floor(Math.random() * num);
     }
-  } else {
+  } else if (dir === Changebig) {
     if (num === biggest) {
       return biggest;
+    } else {
+      return Math.floor(Math.random() * (biggest - num) + num + 1);
+    }
+  } else {
+    if (Math.random() < 0.5) {
+      return Math.floor(Math.random() * num);
     } else {
       return Math.floor(Math.random() * (biggest - num) + num + 1);
     }
@@ -93,8 +103,17 @@ const generateRandomNum = (dir, num) => {
 /**方向确定之后的具体数字选择 */
 const confirmNum = (time, dir) => {
   let num = Number(Data_2.value[time]);
-  let datadir =
-    Data_1.value[time] - Data_2.value[time] >= 0 ? Changebig : Changesmall;
+  // let datadir =
+  //   Data_1.value[time] - Data_2.value[time] >= 0 ? Changebig : Changesmall;
+  let datadir;
+  let data_value = Data_1.value[time] - Data_2.value[time];
+  if (data_value > smallest) {
+    datadir = Changebig;
+  } else if (data_value < smallest) {
+    datadir = Changesmall;
+  } else {
+    datadir = Changecross;
+  }
   let str = "";
   str += "数据测算走向是：" + dataDirArr[dir] + ",";
   if (dir === Cross) {
@@ -113,12 +132,14 @@ const confirmNum = (time, dir) => {
       } else {
         return expressDetail(str, generateRandomNum(Changebig, num));
       }
+    } else {
+      return expressDetail(str, generateRandomNum(Changecross, num));
     }
   } else if (dir === Bigotry) {
     let bDir;
-    bDir = Data_1.value[time] - Data_2.value[time];
-    str = dataDetailChange(bDir, str);
-    return expressDetail(str, generateRandomNum(bDir, num));
+    // bDir = Data_1.value[time] - Data_2.value[time];
+    str = dataDetailChange(datadir, str);
+    return expressDetail(str, generateRandomNum(datadir, num));
   } else {
     return str + "数据的具体变化是：同数据，" + num;
   }
